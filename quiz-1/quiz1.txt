@@ -1,0 +1,113 @@
+AEM="10775"
+
+
+
+
+
+
+# Step 1
+sum1=0
+for (( i=0; i<${#AEM}; i++ )); do
+    digit=${AEM:$i:1}
+    sum1=$((sum1 + digit))
+done
+
+while [ $sum1 -ge 10 ]; do
+    temp_sum=0
+    for (( i=0; i<${#sum1}; i++ )); do
+        digit=${sum1:$i:1}
+        temp_sum=$((temp_sum + digit))
+    done
+    sum1=$temp_sum
+done
+
+echo "Sum of digits: $sum1"
+
+mkdir -p ~/quiz-1
+cd ~/quiz-1
+
+N=sum1
+
+
+
+
+
+
+# Step 2
+randomword=$(tr -dc 'a-z' < /dev/urandom | head -c 6)
+
+for i in $(seq 1 $((10 + N))); do
+    touch "${randomword}-${i}.txt"
+done
+
+
+
+
+
+
+# Step 3
+for file in ~/quiz-1/*.txt; do
+    for _ in $(seq 1 $((10 + N))); do
+        echo -n "$(shuf -e super spider bat -n 1) " >> "$file"
+    done
+    echo >> "$file"
+done
+
+
+
+
+
+
+# Step 4
+report_file="report.txt"
+
+find ~/quiz-1 -name "${randomword}-*.txt" | sort -V > sorted_files.txt
+
+while IFS= read -r file; do
+    super_count=$(grep -o 'super' "$file" | wc -l)
+    spider_count=$(grep -o 'spider' "$file" | wc -l)
+    bat_count=$(grep -o 'bat' "$file" | wc -l)
+
+    echo "$file" >> "$report_file"
+    echo "$super_count super" >> "$report_file"
+    echo "$spider_count spider" >> "$report_file"
+    echo "$bat_count bat" >> "$report_file"
+    echo "" >> "$report_file"
+done < sorted_files.txt
+
+
+rm sorted_files.txt
+
+
+
+
+
+
+# ENALLAKTIKH YLOPOIHSH TOY STEP 4 POY METRAEI TO SYNOLO TON LEXEWN SE OLA TA ARXEIA
+
+# Step 4
+#words=("super" "spider" "bat")
+#declare -A word_totals
+#
+#for word in "${words[@]}"; do
+#    word_totals["$word"]=0
+#done
+#
+#total_files=$((10 + N))
+#
+#for ((i=1; i<=total_files; i++)); do
+#    filename="${randomword}-${i}.txt"
+#    for word in "${words[@]}"; do
+#        count=$(grep -o "$word" "$filename" | wc -l)
+#        word_totals["$word"]=$((word_totals["$word"] + count))
+#    done
+#done
+
+#report="report"
+#report_file="${report}.txt"
+#echo "Word counts in all files:" > "$report_file"
+#for word in "${words[@]}"; do
+#    echo "$word: ${word_totals[$word]}" >> "$report_file"
+#done
+#echo "Report is in: $report_file"
+
