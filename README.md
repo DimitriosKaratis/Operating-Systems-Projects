@@ -1,6 +1,6 @@
 # Operating Systems – Quizzes
 
-This repository contains the implementation of four quizzes for the **Operating Systems** course at the **Department of Electrical and Computer Engineering, Aristotle University of Thessaloniki**, along with some lab work for this class.  
+This repository contains the implementation of four quizzes for the *Operating Systems* course at the **Department of Electrical and Computer Engineering, Aristotle University of Thessaloniki**, along with some lab work for this class.  
 
 The quizzes cover fundamental shell scripting, file management, user handling, Git usage, and signal processing in C. Each quiz was designed to provide hands-on experience with Linux command-line tools and system-level programming.
 
