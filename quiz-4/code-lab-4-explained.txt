@@ -1,0 +1,55 @@
+--------example1.c---------
+1. The program creates a child process using fork().
+2. If fork() is successful:
+   - In the child process (pid == 0): It prints its PID and parent PID, then it executes the ls -l command using execlp. If execlp fails, prints an error message and exits.
+   - In the parent process (pid > 0): It prints its PID and the child's PID then it waits for the child to finish using wait(NULL) and after the child finishes, prints a termination message.
+
+--------example2.c---------
+1. The program takes and prints the current process's PID and its parent's PID.
+2. Functionality:
+   - getpid(): Gets the current process's ID.
+   - getppid(): Gets the parent process's ID.
+3. Execution:
+   - It prints "Current Process ID (PID): <PID>".
+   - It prints "Parent Process ID (PPID): <PPID>".
+
+--------example3.c---------
+1. The program has a signal handler for SIGINT (Ctrl+C).
+2. Functionality:
+   - signal(SIGINT, sigint_handler): Sets a custom handler for SIGINT.
+   - getpid(): It prints the current process's ID.
+   - sigint_handler: It handles SIGINT, prints a message, and exits the program.
+
+3. Execution:
+   - Prints "Process ID: <PID>" and waits for user input.
+   - Runs an infinite loop, printing "Running..." every 2 seconds.
+   - When Ctrl+C is pressed, the signal handler is triggered:
+     It Prints "Caught signal <signal_number> (SIGINT). Exiting gracefully..."
+     It Exits the program.
+
+--------example4.c---------
+1. The program has a signal handler for SIGINT (Ctrl+C) that does not terminate the program.
+2. Functionality:
+   - signal(SIGINT, sigint_handler): It first sets a custom handler for SIGINT.
+   - sigint_handler: It then handles SIGINT, prints a message, and continues execution.
+
+3. Execution:
+   - Prints "Process ID: <PID>" and waits for user input.
+   - Runs an infinite loop, printing "Running... Try pressing Ctrl+C." every 2 seconds.
+   - When Ctrl+C is pressed, the signal handler is triggered: More specifically it prints "Received SIGINT (signal <signal_number>), but ignoring it." and the program does not terminate and continues running.
+
+--------example5.c---------
+1. The program is used for signal handling and inter-process communication between a parent and child process.
+2. Key Functions:
+   - fork(): Creates a child process.
+   - signal(SIGUSR1, sigusr1_handler): It sets up a handler in the child for the SIGUSR1 signal.
+   - pause(): It makes the child wait for a signal.
+   - kill(pid, SIGUSR1): The parent sends the SIGUSR1 signal to the child.
+   - kill(pid, SIGTERM): The parent terminates the child after sending SIGUSR1.
+   - wait(NULL): The parent waits for the child to finish.
+
+3. Execution:
+   - The child process:
+     Gives a custom handler for SIGUSR1. It then waits for signals indefinitely using pause().
+   - The parent process:
+     Initially it prints its PID and the child's PID, then waits for 3 seconds and sends SIGUSR1 to the child. Afterwards the child handles SIGUSR1, sends SIGTERM to terminate the child. After that it waits for the child to terminate.
