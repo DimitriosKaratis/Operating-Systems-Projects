@@ -4,7 +4,7 @@ This repository contains the implementation of four quizzes for the *Operating S
 
 The quizzes cover fundamental shell scripting, file management, user handling, Git usage, and signal processing in C. Each quiz was designed to provide hands-on experience with Linux command-line tools and system-level programming.
 
----
+--- 
 
 ## 📊 Quizzes Overview
 
